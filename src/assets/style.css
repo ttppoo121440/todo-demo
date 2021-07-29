@@ -1,0 +1,124 @@
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 30px;
+}
+
+.btn {
+  width: 100px;
+  font-size: 14px;
+  margin: 0 0.5em;
+  border-radius: 2em;
+  padding: 0.75em 1.5em;
+  cursor: pointer;
+  background: none;
+  color: darken(#4fc08d, 20%);
+  border: 1px solid;
+  letter-spacing: 1px;
+  color: #4fc08d;
+  border: #4fc08d 1px solid;
+}
+.btn:hover {
+  color: #fff;
+  background: #4fc08d;
+}
+.btn:focus {
+  outline: none;
+}
+.form {
+  padding: 1.5rem 1rem 0 1rem;
+  display: flex;
+}
+.form-input {
+  width: 100%;
+  font-size: 14px;
+  margin: 0 0.5em;
+  border-radius: 2em;
+  padding: 0.75em 1.5em;
+  background: none;
+  border: #e3e3e3 1px solid;
+}
+.form-input:focus {
+  border: #4fc08d 1px solid;
+  outline: none;
+}
+
+.list {
+  padding: 30px;
+}
+
+.list .list-item {
+  display: flex;
+  padding: 30px;
+  margin: 20px 0;
+  border: #4fc08d 1px solid;
+}
+.list .list-item:last-child {
+  border-bottom: none;
+}
+.list .list-item input[type='checkbox'] {
+  width: 50px;
+  height: 40px;
+  margin-right: 30px;
+}
+.list .list-item input[type='checkbox']:checked + label {
+  text-decoration: line-through;
+}
+.list .list-item .list-text {
+  font-size: 32px;
+}
+.list .list-item .btn {
+  margin-left: auto;
+}
+
+.list-bottom {
+  position: relative;
+  padding: 0 30px 30px 30px;
+  top: -50px;
+}
+
+.list-bottom-container {
+  padding: 20px 35px;
+  border: #4fc08d 1px solid;
+  justify-content: space-between;
+}
+
+.list-total {
+  padding: 20px 0;
+  font-size: 36px;
+}
+
+.clearAll {
+  display: flex;
+  justify-content: center;
+}
+
+.clearAll a {
+  text-decoration: none;
+  color: #4fc08d;
+  line-height: 20px;
+}
+
+.clearAll a.active {
+  color: white;
+  background: #4fc08d;
+}
