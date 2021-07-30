@@ -17,7 +17,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, context) {
+  setup(props) {
     const data = ref<string>('');
     const addHandler = (): void => {
       if (!data.value.trim()) return;

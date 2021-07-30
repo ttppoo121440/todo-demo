@@ -23,6 +23,12 @@ export interface ListProps {
   isDone: boolean;
 }
 
+export enum State {
+  ALL = '全部',
+  NOT_YET = '未完成',
+  COMPLETED = '已完成',
+}
+
 export default defineComponent({
   name: 'App',
   components: {
@@ -34,7 +40,8 @@ export default defineComponent({
     const listData = reactive<ListProps[]>(
       JSON.parse(localStorage.getItem('todo') || '[]')
     );
-    const state = ref<string>('全部');
+    const state = ref<State>(State.ALL);
+
     return {
       state,
       listData,

@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue';
-import { ListProps } from '../../App.vue';
+import { ListProps, State } from '../../App.vue';
 
 export default defineComponent({
   name: 'ListItem',
@@ -47,15 +47,24 @@ export default defineComponent({
     const cacheTitle = ref<string>('');
     const cacheId = ref<number>(0);
 
+    const filterData = computed(() => {
+      return props.data.filter((item: ListProps) =>
+        props.state === State.NOT_YET
+          ? !item.isDone
+          : props.state === State.COMPLETED
+          ? item.isDone
+          : item
+      );
+    });
+
     const isDoneHandler = (item: ListProps): void => {
       item.isDone = !item.isDone;
       localStorage.setItem('todo', JSON.stringify(props.data));
     };
 
-    const delateData = (id: number): void => {
-      const index: number = props.data.findIndex((item) => item.id === id);
-      props.data.splice(index, 1);
-      localStorage.setItem('todo', JSON.stringify(props.data));
+    const setEditData = (id: number, title: string): void => {
+      cacheTitle.value = title;
+      cacheId.value = id;
     };
 
     const editData = (): void => {
@@ -70,25 +79,16 @@ export default defineComponent({
       editCancel();
     };
 
-    const setEditData = (id: number, title: string): void => {
-      cacheTitle.value = title;
-      cacheId.value = id;
-    };
-
     const editCancel = (): void => {
       cacheTitle.value = '';
       cacheId.value = 0;
     };
 
-    const filterData = computed(() => {
-      return props.data.filter((item: ListProps) =>
-        props.state === '未完成'
-          ? !item.isDone
-          : props.state === '已完成'
-          ? item.isDone
-          : item
-      );
-    });
+    const delateData = (id: number): void => {
+      const index: number = props.data.findIndex((item) => item.id === id);
+      props.data.splice(index, 1);
+      localStorage.setItem('todo', JSON.stringify(props.data));
+    };
 
     return {
       isDoneHandler,
