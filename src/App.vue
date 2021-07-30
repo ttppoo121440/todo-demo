@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed } from 'vue';
+import { defineComponent, ref, reactive } from 'vue';
 import Form from './components/Form/index.vue';
 import ListItem from './components/ListItem/index.vue';
 import ListBottom from './components/ListBottom/index.vue';
@@ -31,9 +31,10 @@ export default defineComponent({
     ListBottom,
   },
   setup() {
-    const listData = reactive<ListProps[]>([]);
+    const listData = reactive<ListProps[]>(
+      JSON.parse(localStorage.getItem('todo') || '[]')
+    );
     const state = ref<string>('全部');
-
     return {
       state,
       listData,

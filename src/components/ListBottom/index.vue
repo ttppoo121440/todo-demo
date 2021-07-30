@@ -17,13 +17,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, PropType } from 'vue';
 import ListTotal from './ListTotal.vue';
+import { ListProps } from '../../App.vue';
+
 export default defineComponent({
   name: 'ListBottom',
   props: {
     data: {
-      type: Array,
+      type: Array as PropType<ListProps[]>,
       required: true,
     },
     state: {
@@ -37,9 +39,9 @@ export default defineComponent({
     const doneText = (btnText: string): void => {
       context.emit('update:state', btnText);
     };
-
     const clearData = (): void => {
       props.data.length = 0;
+      localStorage.removeItem('todo');
       context.emit('update:state', '全部');
     };
 

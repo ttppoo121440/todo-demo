@@ -3,15 +3,20 @@
     <input
       v-if="cacheId === item.id"
       v-model="cacheTitle"
-      @keyup.enter="doneEdit(item)"
-      @keyup.esc="cancelEdit"
+      @keyup.enter="editData(item)"
+      @keyup.esc="editCancel"
       class="form-control"
       type="text"
     />
     <template v-else>
-      <input type="checkbox" v-model="item.isDone" :id="item.id" />
+      <input
+        type="checkbox"
+        v-model="item.isDone"
+        @click="isDoneHandler(item)"
+        :id="item.id"
+      />
       <label
-        @dblclick="editTodo(item.id, item.title)"
+        @dblclick="setEditData(item.id, item.title)"
         :for="item.id"
         class="list-text"
       >
@@ -42,33 +47,41 @@ export default defineComponent({
     const cacheTitle = ref<string>('');
     const cacheId = ref<number>(0);
 
+    const isDoneHandler = (item: ListProps): void => {
+      item.isDone = !item.isDone;
+      localStorage.setItem('todo', JSON.stringify(props.data));
+    };
+
     const delateData = (id: number): void => {
       const index: number = props.data.findIndex((item) => item.id === id);
       props.data.splice(index, 1);
+      localStorage.setItem('todo', JSON.stringify(props.data));
     };
 
-    const doneEdit = (): void => {
+    const editData = (): void => {
       if (!cacheTitle.value) return;
 
       const index: number = props.data.findIndex(
         (item) => item.id === cacheId.value
       );
+
       props.data[index].title = cacheTitle.value;
-      cancelEdit();
+      localStorage.setItem('todo', JSON.stringify(props.data));
+      editCancel();
     };
 
-    const editTodo = (id: number, title: string): void => {
+    const setEditData = (id: number, title: string): void => {
       cacheTitle.value = title;
       cacheId.value = id;
     };
 
-    const cancelEdit = (): void => {
+    const editCancel = (): void => {
       cacheTitle.value = '';
       cacheId.value = 0;
     };
 
     const filterData = computed(() => {
-      return props.data.filter((item) =>
+      return props.data.filter((item: ListProps) =>
         props.state === '未完成'
           ? !item.isDone
           : props.state === '已完成'
@@ -78,12 +91,13 @@ export default defineComponent({
     });
 
     return {
+      isDoneHandler,
       cacheTitle,
       cacheId,
       delateData,
-      editTodo,
-      cancelEdit,
-      doneEdit,
+      setEditData,
+      editCancel,
+      editData,
       filterData,
     };
   },

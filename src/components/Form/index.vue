@@ -26,6 +26,7 @@ export default defineComponent({
         title: data.value,
         isDone: false,
       });
+      localStorage.setItem('todo', JSON.stringify(props.data));
       data.value = '';
     };
     return { data, addHandler };
