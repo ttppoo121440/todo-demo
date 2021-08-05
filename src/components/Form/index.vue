@@ -8,6 +8,7 @@
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue';
 import { ListProps } from '../../App.vue';
+import myLocalStorage from '../../utils/MyLocalStorage';
 
 export default defineComponent({
   name: 'Form',
@@ -26,7 +27,7 @@ export default defineComponent({
         title: data.value,
         isDone: false,
       });
-      localStorage.setItem('todo', JSON.stringify(props.data));
+      myLocalStorage.setItem('todo', props.data);
       data.value = '';
     };
     return { data, addHandler };

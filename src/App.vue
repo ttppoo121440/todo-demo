@@ -16,6 +16,7 @@ import { defineComponent, ref, reactive } from 'vue';
 import Form from './components/Form/index.vue';
 import ListItem from './components/ListItem/index.vue';
 import ListBottom from './components/ListBottom/index.vue';
+import myLocalStorage from './utils/MyLocalStorage';
 
 export interface ListProps {
   id: number;
@@ -37,9 +38,7 @@ export default defineComponent({
     ListBottom,
   },
   setup() {
-    const listData = reactive<ListProps[]>(
-      JSON.parse(localStorage.getItem('todo') || '[]')
-    );
+    const listData = reactive<ListProps[]>(myLocalStorage.getItem('todo'));
     const state = ref<State>(State.ALL);
 
     return {

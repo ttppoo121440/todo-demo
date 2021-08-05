@@ -30,6 +30,7 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue';
 import { ListProps, State } from '../../App.vue';
+import myLocalStorage from '../../utils/MyLocalStorage';
 
 export default defineComponent({
   name: 'ListItem',
@@ -44,9 +45,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const cacheTitle = ref<string>('');
-    const cacheId = ref<number>(0);
-
     const filterData = computed(() => {
       return props.data.filter((item: ListProps) =>
         props.state === State.NOT_YET
@@ -59,8 +57,11 @@ export default defineComponent({
 
     const isDoneHandler = (item: ListProps): void => {
       item.isDone = !item.isDone;
-      localStorage.setItem('todo', JSON.stringify(props.data));
+      myLocalStorage.setItem('todo', props.data);
     };
+
+    const cacheTitle = ref<string>('');
+    const cacheId = ref<number>(0);
 
     const setEditData = (id: number, title: string): void => {
       cacheTitle.value = title;
@@ -75,7 +76,7 @@ export default defineComponent({
       );
 
       props.data[index].title = cacheTitle.value;
-      localStorage.setItem('todo', JSON.stringify(props.data));
+      myLocalStorage.setItem('todo', props.data);
       editCancel();
     };
 

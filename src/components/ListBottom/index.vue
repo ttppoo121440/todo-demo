@@ -20,6 +20,7 @@
 import { defineComponent, reactive, PropType } from 'vue';
 import ListTotal from './ListTotal.vue';
 import { ListProps, State } from '../../App.vue';
+import myLocalStorage from '../../utils/MyLocalStorage';
 
 export default defineComponent({
   name: 'ListBottom',
@@ -41,7 +42,7 @@ export default defineComponent({
     };
     const clearData = (): void => {
       props.data.length = 0;
-      localStorage.removeItem('todo');
+      myLocalStorage.removeItem('todo');
       context.emit('update:state', '全部');
     };
 
